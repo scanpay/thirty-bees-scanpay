@@ -1,5 +1,4 @@
 <?php
-use PrestaShop\PrestaShop\Core\Payment\PaymentOption;
 
 if (!defined('_PS_VERSION_')) {
   exit();
@@ -18,7 +17,7 @@ class Scanpay extends PaymentModule
         $this->name = 'scanpay';
         $this->tab = 'payments_gateways';
         $this->version = '0.1.1';
-        $this->ps_versions_compliancy = array('min' => '1.7', 'max' => _PS_VERSION_);
+        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->author = 'Scanpay ApS';
         $this->need_instance = 0;
         $this->is_eu_compatible = 1;
@@ -40,7 +39,7 @@ class Scanpay extends PaymentModule
         if (Shop::isFeatureActive()) { Shop::setContext(Shop::CONTEXT_ALL); }
         return parent::install() &&
             $this->registerHook('paymentReturn') &&
-            $this->registerHook('paymentOptions');
+            $this->registerHook('payment');
     }
 
     public function uninstall()
@@ -65,26 +64,24 @@ class Scanpay extends PaymentModule
     }
 
     /* Create array of payment options to be shown in checkout */
-    public function hookPaymentOptions($params) 
+    public function hookPayment($params)
     {
         if (!$this->active) {
             return;
         }
-        $payopts = [];
-        $base = new PaymentOption();
         $title = Configuration::get('SCANPAY_TITLE');
         if (!$title) {
             $title = self::DFLT_TITLE;
         }
-        $payopts[] = (new PaymentOption)->setCallToActionText($title)
-            ->setAction($this->context->link->getModuleLink($this->name, 'newurl', [], true));
 
-        if (Configuration::get('SCANPAY_MOBILEPAY')) {
-            $payopts[] = (new PaymentOption)->setCallToActionText($this->l('MobilePay'))
-                ->setAction($this->context->link->getModuleLink($this->name, 'newurl', ['paymentmethod' => 'mobilepay'], true));
-        }
+        $this->context->smarty->assign([
+            'cards_title' =>  $title,
+            'cards_link'  => $this->context->link->getModuleLink($this->name, 'newurl', [], true),
 
-        return $payopts;
+            'mobilepay_enabled' => Configuration::get('SCANPAY_MOBILEPAY'),
+            'mobilepay_link'    => $this->context->link->getModuleLink($this->name, 'newurl', ['paymentmethod' => 'mobilepay'], true),
+        ]);
+        return $this->context->smarty->fetch($this->getLocalPath() . 'views/templates/hook/payment.tpl');
     }
 
     /* Handle the order confirmation page (post-payment) */
