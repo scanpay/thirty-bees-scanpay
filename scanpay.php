@@ -4,6 +4,8 @@ if (!defined('_PS_VERSION_')) {
   exit();
 }
 
+define('SCANPAY_VERSION', '0.1.2');
+
 require_once(dirname(__FILE__) . '/classes/spdb.php');
 
 class Scanpay extends PaymentModule
