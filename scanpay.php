@@ -83,18 +83,19 @@ class Scanpay extends PaymentModule
             'mobilepay_enabled' => Configuration::get('SCANPAY_MOBILEPAY'),
             'mobilepay_link'    => $this->context->link->getModuleLink($this->name, 'newurl', ['paymentmethod' => 'mobilepay'], true),
         ]);
+        $this->context->controller->addCSS($this->getPathUri() . 'views/css/payment.css');
         return $this->context->smarty->fetch($this->getLocalPath() . 'views/templates/hook/payment.tpl');
     }
 
     /* Handle the order confirmation page (post-payment) */
     public function hookPaymentReturn($params) 
     { 
-        if (!isset($params['order']) || ($params['order']->module != $this->name)) {
+        if (!isset($params['objOrder']) || ($params['objOrder']->module !== $this->name)) {
             return false;
         }
-        $order = $params['order'];
+        $order = $params['objOrder'];
         if (Validate::isLoadedObject($order) && isset($order->valid)) {
-            $this->smarty->assign([
+            $this->context->smarty->assign([
                 'id_order' => $order->id,
                 'valid'    => $order->valid,
             ]);
@@ -102,12 +103,15 @@ class Scanpay extends PaymentModule
         if (isset($order->reference) && !empty($order->reference)) {
             $this->smarty->assign('reference', $order->reference);
         }
-        $this->smarty->assign([
+        $langId = $this->context->language->id;
+        $this->context->smarty->assign([
             'shop_name'   => $this->context->shop->name,
             'reference'   => $order->reference,
-            'contact_url' => $this->context->link->getPageLink('contact', true)
+            'contact_url' => $this->context->link->getPageLink('contact', true),
+            'order_url'   => $this->context->link->getPageLink('order-detail', 1, $langId, array('id_order' => $order->id)),
+            'order_state' => $order->getCurrentOrderState()->name[$langId],
         ]);
-        return $this->fetch('module:scanpay/views/templates/hook/payment_return.tpl'); 
+        return $this->context->smarty->fetch($this->getLocalPath() . 'views/templates/hook/payment_return.tpl');
     }
 
     /* Configuration handling (Settings) */

@@ -1,0 +1,27 @@
+p.payment_module a.scanpay:after {
+    display: block;
+    content: "\f054";
+    position: absolute;
+    right: 15px;
+    margin-top: -11px;
+    top: 50%;
+    font-family: "FontAwesome";
+    font-size: 25px;
+    height: 22px;
+    width: 14px;
+    color: #777;
+}
+
+p.payment_module a.scanpay-card {
+    background: url('../../views/img/card.png') 15px 12px no-repeat #fbfbfb;
+    background-size: 64px 64px;
+}
+p.payment_module a.scanpay-mobilepay {
+    background: url('../../views/img/mobilepay.svg') 20px 22px no-repeat #fbfbfb;
+    background-size: 64px 43.8px;
+}
+
+
+p.payment_module a:hover {
+     background-color: #f6f6f6;
+}
