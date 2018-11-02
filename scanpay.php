@@ -4,7 +4,7 @@ if (!defined('_PS_VERSION_')) {
   exit();
 }
 
-define('SCANPAY_VERSION', '0.1.2');
+define('SCANPAY_VERSION', '0.1.3');
 
 require_once(dirname(__FILE__) . '/classes/spdb.php');
 
@@ -88,8 +88,8 @@ class Scanpay extends PaymentModule
     }
 
     /* Handle the order confirmation page (post-payment) */
-    public function hookPaymentReturn($params) 
-    { 
+    public function hookPaymentReturn($params)
+    {
         if (!isset($params['objOrder']) || ($params['objOrder']->module !== $this->name)) {
             return false;
         }
@@ -271,7 +271,7 @@ class Scanpay extends PaymentModule
         ];
 
         foreach($settings as $key => $value) {
-            $helper->fields_value[$key] = $value; 
+            $helper->fields_value[$key] = $value;
         }
         $helper->fields_value['pingurl'] = $this->context->link->getModuleLink($this->name, 'ping', [], true);
 
