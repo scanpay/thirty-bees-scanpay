@@ -133,7 +133,6 @@ class Scanpay extends PaymentModule
     /* Order status change hook */
     public function hookPostUpdateOrderStatus($params)
     {
-        $this->log('LOL hookPostUpdateOrderStatus');
         if (Configuration::get('SCANPAY_CAPTURE_ON_COMPLETE')) {
             $order = new Order($params['id_order']);
             if ($params['newOrderStatus']->id === intval(_PS_OS_SHIPPING_) ||
