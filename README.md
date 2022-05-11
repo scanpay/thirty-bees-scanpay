@@ -1,13 +1,13 @@
 # Scanpay for Thirty Bees
 
-We have developed an official payment module for [Thirty Bees](https://thirtybees.com/). The module allows you to accept payments in your Thirty Bees store via our [API](https://docs.scanpay.dk/). We support and maintain the module, but we encourage you to help us improve the module. Feedback, bug reports and code contributions are much appreciated.
+We have developed an official payment module for [Thirty Bees](https://thirtybees.com/). The module allows you to accept payments in your Thirty Bees store via our [API](https://docs.scanpay.dk/). We support and maintain the module, but we hope you will help us improve it. Feedback, bug reports and code contributions are much appreciated.
 
 You can always e-mail us at [help@scanpay.dk](mailto:help@scanpay.dk) or chat with us on IRC at libera.chat #scanpay ([webchat](https://web.libera.chat/#scanpay)).
 
 **Note:** Thirty Bees is based on PrestaShop 1.6, so this module will also work for PrestaShop 1.6.
 
 ## Installation
-1. Download the latest zip file [here](https://github.com/scanpay/thirty-bees-scanpay/releases).
+1. Download the latest zip file [here](../../releases).
 2. Enter the Thirty Bees admin and navigate to `Modules and Services`.
 3. Click the *"Add a new module"* button and select the zip file you just downloaded.
 4. Scroll down to find the Scanpay module and press the green *"install"* button.
