@@ -4,6 +4,8 @@ We have developed an official payment module for [Thirty Bees](https://thirtybee
 
 You can always e-mail us at [help@scanpay.dk](mailto:help@scanpay.dk) or chat with us on IRC at libera.chat #scanpay ([webchat](https://web.libera.chat/#scanpay)).
 
+**Note:** Thirty Bees is based on PrestaShop 1.6, so this module will also work for PrestaShop 1.6.
+
 ## Installation
 1. Download the latest zip file [here](https://github.com/scanpay/thirty-bees-scanpay/releases).
 2. Enter the Thirty Bees admin and navigate to `Modules and Services`.
